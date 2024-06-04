@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { Container, VStack, Text, Input, Button, Spinner, useToast } from "@chakra-ui/react";
 import { FaFilePdf, FaUpload } from "react-icons/fa";
+import StepByStepFiller from "../components/StepByStepFiller";
 
 const Index = () => {
   const [pdfFile, setPdfFile] = useState(null);
   const [loading, setLoading] = useState(false);
   const toast = useToast();
+  const [stepByStep, setStepByStep] = useState(false);
 
   const handleFileChange = (event) => {
     setPdfFile(event.target.files[0]);
@@ -38,7 +40,20 @@ const Index = () => {
     }, 3000);
   };
 
-  return (
+  const handleComplete = () => {
+    setStepByStep(false);
+    toast({
+      title: "Document completed.",
+      description: "The AI has filled out your PDF document.",
+      status: "success",
+      duration: 5000,
+      isClosable: true,
+    });
+  };
+
+  return stepByStep ? (
+    <StepByStepFiller pdfFile={pdfFile} onComplete={handleComplete} />
+  ) : (
     <Container centerContent maxW="container.md" height="100vh" display="flex" flexDirection="column" justifyContent="center" alignItems="center">
       <VStack spacing={4}>
         <Text fontSize="2xl">AI PDF Filler</Text>
