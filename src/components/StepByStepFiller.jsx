@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { Container, VStack, Text, Input, Button, Spinner, useToast } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
 
 const StepByStepFiller = ({ pdfFile, onComplete }) => {
   const [currentStep, setCurrentStep] = useState(0);
   const [inputValue, setInputValue] = useState("");
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
   const toast = useToast();
 
   const handleNext = () => {
@@ -28,6 +30,7 @@ const StepByStepFiller = ({ pdfFile, onComplete }) => {
 
       if (currentStep + 1 === 5) {
         onComplete();
+        navigate("/download");
       }
     }, 1000);
   };

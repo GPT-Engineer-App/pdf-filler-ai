@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { Container, VStack, Text, Input, Button, Spinner, useToast } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
 import { FaFilePdf, FaUpload } from "react-icons/fa";
 import StepByStepFiller from "../components/StepByStepFiller";
 
 const Index = () => {
   const [pdfFile, setPdfFile] = useState(null);
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
   const toast = useToast();
   const [stepByStep, setStepByStep] = useState(false);
 
@@ -37,6 +39,7 @@ const Index = () => {
         duration: 5000,
         isClosable: true,
       });
+      setStepByStep(true);
     }, 3000);
   };
 
